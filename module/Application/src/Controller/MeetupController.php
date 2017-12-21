@@ -89,6 +89,40 @@ class MeetupController extends AbstractActionController
         return new ViewModel([
             'meetup' => $meetup,
         ]);
+    }
 
+    public function editAction()
+    {
+        $id = $this->params()->fromRoute('id');
+        try {
+            $meetup = $this->meetupManager->getRepository()->findOneBy(['id' => $id]);
+        } catch (\InvalidArgumentException $ex) {
+            return $this->redirect()->toRoute('meetup');
+        }
+
+        $form = $this->meetupManager->getForm();
+        $form->bind($meetup);
+        $form->bindDates();
+
+        /** @var Request $request */
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $data = $this->params()->fromPost();
+            $form->setData($data);
+
+            if ($form->isValid()) {
+                $this->meetupManager->persistAndFlush($meetup);
+                /** @var FlashMessenger $flashMessenger */
+                $flashMessenger = $this->flashMessenger();
+
+                $flashMessenger->addSuccessMessage('Thanks for your support !');
+
+                return $this->redirect()->toRoute('meetup', ['action' => 'thankYou']);
+            }
+        }
+
+        return new ViewModel([
+            'form' => $form
+        ]);
     }
 }

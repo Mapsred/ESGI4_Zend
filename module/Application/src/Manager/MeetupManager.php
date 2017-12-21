@@ -8,7 +8,6 @@
 
 namespace Application\Manager;
 
-use Application\Entity\Meetup;
 use Application\Form\MeetupForm;
 use Application\Repository\MeetupRepository;
 

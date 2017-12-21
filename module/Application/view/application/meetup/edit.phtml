@@ -10,7 +10,7 @@ $form = $this->form;
 $form
     ->prepare()
     ->setAttributes([
-        'action' => $this->url('meetup/create'),
+        'action' => $this->url('meetup/edit', [], [], true),
         'method' => 'post',
         'class' => 'form'
     ]);

@@ -41,13 +41,13 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             'options' => ['label' => 'Description'],
             'attributes' => ['class' => 'form-control'],
         ])->add([
-            'type' => 'Zend\Form\Element\Date',
+            'type' => 'Zend\Form\Element\Text',
             'name' => 'start_date',
             'options' => ['label' => 'Date de début', 'format' => 'd/m/Y'],
-            'attributes' => ['class' => 'form-control date_picker'],
+            'attributes' => ['class' => 'form-control date_picker', 'value' => ''],
 
         ])->add([
-            'type' => 'Zend\Form\Element\Date',
+            'type' => 'Zend\Form\Element\Text',
             'name' => 'end_date',
             'options' => ['label' => 'Date de fin', 'format' => 'd/m/Y'],
             'attributes' => ['class' => 'form-control date_picker'],
@@ -58,6 +58,17 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             'attributes' => ['value' => 'Submit', 'class' => 'btn btn-default'],
 
         ])->add(new Csrf('security'));
+    }
+
+    /**
+     * Used to bind the \DateTime objects to the Value of the Date Elements
+     */
+    public function bindDates()
+    {
+        /** @var Meetup $meetup */
+        $meetup = $this->getObject();
+        $this->get('start_date')->setValue($meetup->getStartDate()->format("d/m/Y"));
+        $this->get('end_date')->setValue($meetup->getEndDate()->format("d/m/Y"));
     }
 
     /**
