@@ -16,7 +16,8 @@
         ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
         ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
     ?>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css"/>
 
     <!-- Scripts -->
     <?= $this->headScript()
@@ -43,10 +44,10 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="<?= $this->url() == $this->url('meetup') ? "active": "" ?>">
+                <li class="<?= $this->url(null, [], [], true) == $this->url('meetup') ? "active" : "" ?>">
                     <a href="<?= $this->url('meetup') ?>">Voir les Meetup</a>
                 </li>
-                <li class="<?= $this->url() == $this->url('meetup/create') ? "active": "" ?>">
+                <li class="<?= $this->url(null, [], [], true) == $this->url('meetup/create') ? "active" : "" ?>">
                     <a href="<?= $this->url('meetup/create') ?>">Ajouter un Meetup</a>
                 </li>
             </ul>

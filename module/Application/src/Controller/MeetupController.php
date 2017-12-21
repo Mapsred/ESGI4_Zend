@@ -55,7 +55,7 @@ class MeetupController extends AbstractActionController
 
                 $flashMessenger->addSuccessMessage('Thanks for your support !');
 
-                return $this->redirect()->toRoute('meetup/list', ['action' => 'thankYou']);
+                return $this->redirect()->toRoute('meetup', ['action' => 'thankYou']);
             }
         }
 
@@ -74,5 +74,21 @@ class MeetupController extends AbstractActionController
         return new ViewModel([
             'meetups' => $meetups
         ]);
+    }
+
+    public function detailAction()
+    {
+        $id = $this->params()->fromRoute('id');
+
+        try {
+            $meetup = $this->meetupManager->getRepository()->findOneBy(['id' => $id]);
+        } catch (\InvalidArgumentException $ex) {
+            return $this->redirect()->toRoute('meetup');
+        }
+
+        return new ViewModel([
+            'meetup' => $meetup,
+        ]);
+
     }
 }

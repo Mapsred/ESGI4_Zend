@@ -1,0 +1,20 @@
+<?php
+
+use Application\Entity\Meetup;
+
+/** @var Meetup $meetup */
+$meetup = $this->meetup;
+?>
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Meetup <?= $meetup->getId() . " : " . $meetup->getTitle() ?></div>
+    <div class="panel-body">
+        <p>du <?= $meetup->getStartDate()->format('d/m/Y') ?> au <?= $meetup->getEndDate()->format('d/m/Y') ?></p>
+        <br>
+        <?= nl2br($meetup->getDescription()) ?>
+    </div>
+
+</div>
+
+
