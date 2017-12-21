@@ -10,6 +10,7 @@ namespace Application\Manager;
 
 use Application\Entity\Meetup;
 use Application\Form\MeetupForm;
+use Application\Repository\MeetupRepository;
 
 /**
  * Class MeetupManager
@@ -17,6 +18,7 @@ use Application\Form\MeetupForm;
  * @author François MATHIEU <francois.mathieu@livexp.fr>
  * @method MeetupForm getForm()
  * @method MeetupForm persistAndFlush($entity)
+ * @method MeetupRepository getRepository()
  */
 class MeetupManager extends BaseManager
 {

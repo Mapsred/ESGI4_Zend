@@ -8,6 +8,7 @@
 
 namespace Application\Factory;
 
+use Application\Entity\Meetup;
 use Application\Form\MeetupForm;
 use Application\Manager\BaseManager;
 use Application\Manager\MeetupManager;
@@ -38,10 +39,12 @@ class ManagerFactory implements FactoryInterface
         $manager = $container->get('doctrine.entitymanager.orm_default');
 
         $form = null;
+        $class = null;
         if ($requestedName === MeetupManager::class) {
+            $class = Meetup::class;
             $form = new MeetupForm($manager);
         }
 
-        return new $requestedName($manager, $form);
+        return new $requestedName($manager, $form, $class);
     }
 }

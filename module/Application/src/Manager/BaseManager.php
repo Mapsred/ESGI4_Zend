@@ -8,7 +8,9 @@
 
 namespace Application\Manager;
 
+use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Zend\Form\Form;
 
 /**
@@ -28,14 +30,21 @@ abstract class BaseManager
     private $form;
 
     /**
+     * @var string $class
+     */
+    private $class;
+
+    /**
      * BaseManager constructor.
      * @param EntityManager $manager
      * @param Form $form
+     * @param string $class
      */
-    public function __construct(EntityManager $manager, Form $form)
+    public function __construct(EntityManager $manager, Form $form, string $class)
     {
         $this->manager = $manager;
         $this->form = $form;
+        $this->class = $class;
     }
 
     /**
@@ -44,6 +53,22 @@ abstract class BaseManager
     public function getManager(): EntityManager
     {
         return $this->manager;
+    }
+
+    /**
+     * @return ObjectRepository|EntityRepository
+     */
+    public function getRepository()
+    {
+        return $this->manager->getRepository($this->class);
+    }
+
+    /**
+     * @return string
+     */
+    public function getClass(): string
+    {
+        return $this->class;
     }
 
     /**

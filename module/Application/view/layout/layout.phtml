@@ -43,7 +43,15 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="<?= $this->url('home') ?>">Home</a></li>
+                <li class="<?= $this->url() == $this->url('home') ? "active": "" ?>">
+                    <a href="<?= $this->url('home') ?>">Home</a>
+                </li>
+                <li class="<?= $this->url() == $this->url('meetup_create') ? "active": "" ?>">
+                    <a href="<?= $this->url('meetup_create') ?>">Ajouter un Meetup</a>
+                </li>
+                <li class="<?= $this->url() == $this->url('meetup_list') ? "active": "" ?>">
+                    <a href="<?= $this->url('meetup_list') ?>">Voir les Meetup</a>
+                </li>
             </ul>
         </div>
     </div>

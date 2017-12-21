@@ -1,0 +1,41 @@
+<?php
+
+use Application\Entity\Meetup;
+
+/** @var Meetup $meetup */
+?>
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Meetups</div>
+    <div class="panel-body">
+        <p>Les différents meetups sont listés ici</p>
+    </div>
+
+    <!-- Table -->
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <?php foreach ($this->meetups as $meetup): ?>
+            <tr>
+                <td><?= $meetup->getId() ?></td>
+                <td><?= $meetup->getTitle() ?></td>
+                <td><?= $meetup->getStartDate()->format('d/m/Y') ?></td>
+                <td><?= $meetup->getEndDate()->format('d/m/Y') ?></td>
+                <td><?= $meetup->getDescription() ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+

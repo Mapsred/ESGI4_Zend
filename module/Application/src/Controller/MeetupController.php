@@ -19,7 +19,7 @@ use Zend\View\Model\ViewModel;
 class MeetupController extends AbstractActionController
 {
     /**
-     * @var MeetupManager
+     * @var MeetupManager $meetupManager
      */
     private $meetupManager;
 
@@ -56,6 +56,18 @@ class MeetupController extends AbstractActionController
 
         return new ViewModel([
             'form' => $form
+        ]);
+    }
+
+    /**
+     * @return Response|ViewModel
+     */
+    public function listAction()
+    {
+        $meetups = $this->meetupManager->getRepository()->findAll();
+
+        return new ViewModel([
+            'meetups' => $meetups
         ]);
     }
 }

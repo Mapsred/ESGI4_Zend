@@ -45,6 +45,16 @@ return [
                     ],
                 ],
             ],
+            'meetup_list' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route' => '/meetup/list',
+                    'defaults' => [
+                        'controller' => Controller\MeetupController::class,
+                        'action' => 'list',
+                    ],
+                ],
+            ],
 
         ],
     ],
