@@ -44,7 +44,6 @@ class MeetupController extends AbstractActionController
             $form->setData($data);
 
             if ($form->isValid()) {
-                var_dump($meetup->getTitle());exit;
                 $this->meetupManager->persistAndFlush($meetup);
                 /** @var FlashMessenger $flashMessenger */
                 $flashMessenger = $this->flashMessenger();

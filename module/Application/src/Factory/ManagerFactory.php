@@ -39,7 +39,7 @@ class ManagerFactory implements FactoryInterface
 
         $form = null;
         if ($requestedName === MeetupManager::class) {
-            $form = new MeetupForm();
+            $form = new MeetupForm($manager);
         }
 
         return new $requestedName($manager, $form);

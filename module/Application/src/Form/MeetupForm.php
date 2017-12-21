@@ -8,21 +8,27 @@
 
 namespace Application\Form;
 
+use Application\Entity\Meetup;
+use Doctrine\ORM\EntityManager;
 use Zend\Form\Element\Csrf;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Validator;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
 class MeetupForm extends Form implements InputFilterProviderInterface
 {
     /**
      * MeetupForm constructor.
+     * @param EntityManager $entityManager
      * @param null $name
      * @param array $options
      */
-    public function __construct($name = null, $options = [])
+    public function __construct(EntityManager $entityManager, $name = null, $options = [])
     {
         parent::__construct($name, $options);
+        $hydrator = new DoctrineHydrator($entityManager, Meetup::class);
+        $this->setHydrator($hydrator);
 
         $this->add([
             'type' => 'Zend\Form\Element\Text',

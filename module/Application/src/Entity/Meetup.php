@@ -9,7 +9,6 @@
 namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zend\Stdlib\ArraySerializableInterface;
 
 /**
  * Class User
@@ -17,7 +16,7 @@ use Zend\Stdlib\ArraySerializableInterface;
  * @ORM\Table(name="meetup")
  * @ORM\Entity(repositoryClass="Application\Repository\MeetupRepository")
  */
-class Meetup implements ArraySerializableInterface
+class Meetup
 {
     /**
      * @var int
@@ -59,7 +58,7 @@ class Meetup implements ArraySerializableInterface
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -125,9 +124,9 @@ class Meetup implements ArraySerializableInterface
      * @param \DateTime $startDate
      * @return Meetup
      */
-    public function setStartDate(\DateTime $startDate): Meetup
+    public function setStartDate($startDate): Meetup
     {
-        $this->startDate = $startDate;
+        $this->startDate = $this->stringToDate($startDate);
 
         return $this;
     }
@@ -144,37 +143,23 @@ class Meetup implements ArraySerializableInterface
      * @param \DateTime $endDate
      * @return Meetup
      */
-    public function setEndDate(\DateTime $endDate): Meetup
+    public function setEndDate($endDate): Meetup
     {
-        $this->endDate = $endDate;
+        $this->endDate = $this->stringToDate($endDate);
 
         return $this;
     }
 
     /**
-     * @return array
+     * @param $date
+     * @return bool|\DateTime
      */
-    public function getArrayCopy(): array
+    public function stringToDate($date): \DateTime
     {
-        return [
-            'title' => $this->getTitle(),
-            'description' => $this->getDescription(),
-            'start_date' => $this->getStartDate(),
-            'end_date' => $this->getEndDate()
-        ];
-    }
+        if (! $date instanceof \DateTime) {
+            $date = \DateTime::createFromFormat('d/m/Y', $date);
+        }
 
-    /**
-     * Exchange internal values from provided array
-     *
-     * @param  array $array
-     * @return void
-     */
-    public function exchangeArray(array $array)
-    {
-        $this->setTitle($array['title'])
-            ->setDescription($array['description'])
-            ->setStartDate(\DateTime::createFromFormat("d/m/Y", $array['start_date']))
-            ->setEndDate(\DateTime::createFromFormat("d/m/Y", $array['end_date']));
+        return $date;
     }
 }
