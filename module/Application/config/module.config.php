@@ -7,6 +7,7 @@
 
 namespace Application;
 
+use Application\Factory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -34,12 +35,29 @@ return [
                     ],
                 ],
             ],
+            'meetup' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route' => '/meetup/add',
+                    'defaults' => [
+                        'controller' => Controller\MeetupController::class,
+                        'action' => 'create',
+                    ],
+                ],
+            ],
+
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
+            Controller\MeetupController::class => Factory\ControllerManagerFactory::class,
         ],
+    ],
+    "service_manager" => [
+        "factories" => [
+            Manager\MeetupManager::class => Factory\ManagerFactory::class,
+        ]
     ],
     'view_manager' => [
         'display_not_found_reason' => true,
