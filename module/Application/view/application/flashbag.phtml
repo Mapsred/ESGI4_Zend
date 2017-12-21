@@ -1,0 +1,20 @@
+<?php
+
+use Zend\View\Helper\FlashMessenger;
+
+/** @var FlashMessenger $flash */
+$flash = $this->flash;
+
+$flashbag = [
+    'info' => $flash->getPluginFlashMessenger()->getInfoMessages(),
+    'success' => $flash->getPluginFlashMessenger()->getSuccessMessages(),
+    'warning' => $flash->getPluginFlashMessenger()->getWarningMessages(),
+    'error' => $flash->getPluginFlashMessenger()->getErrorMessages(),
+    'default' => $flash->getPluginFlashMessenger()->getMessages()
+];
+
+foreach ($flashbag as $type => $messages) {
+    foreach ($messages as $message) {
+        echo sprintf('<div class="alert alert-%s">%s</div>', $type, $message);
+    }
+}

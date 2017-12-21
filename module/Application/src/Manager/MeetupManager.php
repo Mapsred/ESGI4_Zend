@@ -8,6 +8,7 @@
 
 namespace Application\Manager;
 
+use Application\Entity\Meetup;
 use Application\Form\MeetupForm;
 
 /**
@@ -19,5 +20,4 @@ use Application\Form\MeetupForm;
  */
 class MeetupManager extends BaseManager
 {
-
 }

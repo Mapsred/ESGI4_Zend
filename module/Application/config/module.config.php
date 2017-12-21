@@ -35,7 +35,7 @@ return [
                     ],
                 ],
             ],
-            'meetup' => [
+            'meetup_create' => [
                 'type' => Literal::class,
                 'options' => [
                     'route' => '/meetup/add',

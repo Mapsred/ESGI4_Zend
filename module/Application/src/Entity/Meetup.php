@@ -8,8 +8,8 @@
 
 namespace Application\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Zend\Stdlib\ArraySerializableInterface;
 
 /**
  * Class User
@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="meetup")
  * @ORM\Entity(repositoryClass="Application\Repository\MeetupRepository")
  */
-class Meetup
+class Meetup implements ArraySerializableInterface
 {
     /**
      * @var int
@@ -78,7 +78,7 @@ class Meetup
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->title;
     }
@@ -97,7 +97,7 @@ class Meetup
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
@@ -116,7 +116,7 @@ class Meetup
     /**
      * @return \DateTime
      */
-    public function getStartDate(): \DateTime
+    public function getStartDate()
     {
         return $this->startDate;
     }
@@ -135,7 +135,7 @@ class Meetup
     /**
      * @return \DateTime
      */
-    public function getEndDate(): \DateTime
+    public function getEndDate()
     {
         return $this->endDate;
     }
@@ -151,5 +151,30 @@ class Meetup
         return $this;
     }
 
+    /**
+     * @return array
+     */
+    public function getArrayCopy(): array
+    {
+        return [
+            'title' => $this->getTitle(),
+            'description' => $this->getDescription(),
+            'start_date' => $this->getStartDate(),
+            'end_date' => $this->getEndDate()
+        ];
+    }
 
+    /**
+     * Exchange internal values from provided array
+     *
+     * @param  array $array
+     * @return void
+     */
+    public function exchangeArray(array $array)
+    {
+        $this->setTitle($array['title'])
+            ->setDescription($array['description'])
+            ->setStartDate(\DateTime::createFromFormat("d/m/Y", $array['start_date']))
+            ->setEndDate(\DateTime::createFromFormat("d/m/Y", $array['end_date']));
+    }
 }

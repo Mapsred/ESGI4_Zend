@@ -35,8 +35,20 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             'options' => ['label' => 'Description'],
             'attributes' => ['class' => 'form-control'],
         ])->add([
-            'name' => 'submit',
+            'type' => 'Zend\Form\Element\Date',
+            'name' => 'start_date',
+            'options' => ['label' => 'Date de début', 'format' => 'd/m/Y'],
+            'attributes' => ['class' => 'form-control date_picker'],
+
+        ])->add([
+            'type' => 'Zend\Form\Element\Date',
+            'name' => 'end_date',
+            'options' => ['label' => 'Date de fin', 'format' => 'd/m/Y'],
+            'attributes' => ['class' => 'form-control date_picker'],
+            'format' => 'd/m/Y'
+        ])->add([
             'type' => 'Zend\Form\Element\Submit',
+            'name' => 'submit',
             'attributes' => ['value' => 'Submit', 'class' => 'btn btn-default'],
 
         ])->add(new Csrf('security'));
@@ -51,20 +63,40 @@ class MeetupForm extends Form implements InputFilterProviderInterface
     public function getInputFilterSpecification()
     {
         return [
-            'name' => [
+            'title' => [
+                'required' => true,
                 'validators' => [
-                    [
-                        'title' => Validator\StringLength::class,
-                        'options' => ['min' => 2, 'max' => 256]
-                    ],
-                    [
-                        'description' => Validator\StringLength::class,
-                        'options' => ['min' => 2, 'max' => 65555]
-                    ],
-
+                    ['name' => Validator\StringLength::class, 'options' => ['min' => 2, 'max' => 256]],
                 ],
             ],
-        ];
+            'description' => [
+                'required' => true,
+                'validators' => [
+                    ['name' => Validator\StringLength::class, 'options' => ['min' => 2, 'max' => 65555]],
+                ]
+            ],
 
+            'start_date' => [
+                'required' => true,
+                'validators' => [
+                    ['name' => Validator\Callback::class, 'options' => [
+                        'callback' => [$this, 'verifyDate']
+                    ]]
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * @param string $value
+     * @param array $context
+     * @return bool
+     */
+    public function verifyDate(string $value, array $context): bool
+    {
+        $startDate = \DateTime::createFromFormat("d/m/Y", $value);
+        $endDate = \DateTime::createFromFormat('d/m/Y', $context['end_date']);
+
+        return $endDate > $startDate;
     }
 }
