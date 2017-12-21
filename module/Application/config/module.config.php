@@ -10,48 +10,78 @@ namespace Application;
 use Application\Factory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
-use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'router' => [
         'routes' => [
             'home' => [
-                'type' => Literal::class,
+                'type'    => Literal::class,
                 'options' => [
                     'route'    => '/',
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
+                        'controller' => Controller\MeetupController::class,
                         'action'     => 'index',
                     ],
                 ],
             ],
-            'application' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route'    => '/application[/:action]',
-                    'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
-                    ],
-                ],
-            ],
-            'meetup_create' => [
+            'meetup' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route' => '/meetup/add',
+                    'route' => '/meetup',
                     'defaults' => [
                         'controller' => Controller\MeetupController::class,
-                        'action' => 'create',
+                        'action'     => 'list',
                     ],
                 ],
-            ],
-            'meetup_list' => [
-                'type' => Literal::class,
-                'options' => [
-                    'route' => '/meetup/list',
-                    'defaults' => [
-                        'controller' => Controller\MeetupController::class,
-                        'action' => 'list',
+                'may_terminate' => true,
+                'child_routes'  => [
+                    'detail' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route'    => '/:id',
+                            'defaults' => [
+                                'action' => 'detail',
+                            ],
+                            'constraints' => [
+                                'id' => '[1-9]\d*',
+                            ],
+                        ],
+                    ],
+                    'create' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route'    => '/create',
+                            'defaults' => [
+                                'controller' => Controller\MeetupController::class,
+                                'action'     => 'create',
+                            ],
+                        ],
+                    ],
+                    'edit' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route'    => '/edit/:id',
+                            'defaults' => [
+                                'controller' => Controller\MeetupController::class,
+                                'action'     => 'edit',
+                            ],
+                            'constraints' => [
+                                'id' => '[1-9]\d*',
+                            ],
+                        ],
+                    ],
+                    'delete' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/delete/:id',
+                            'defaults' => [
+                                'controller' => Controller\MeetupController::class,
+                                'action'     => 'delete',
+                            ],
+                            'constraints' => [
+                                'id' => '[1-9]\d*',
+                            ],
+                        ],
                     ],
                 ],
             ],
@@ -60,7 +90,6 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
             Controller\MeetupController::class => Factory\ControllerManagerFactory::class,
         ],
     ],

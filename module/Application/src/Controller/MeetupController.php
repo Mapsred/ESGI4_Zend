@@ -28,6 +28,11 @@ class MeetupController extends AbstractActionController
         $this->meetupManager = $meetupManager;
     }
 
+    public function indexAction(): ViewModel
+    {
+        return parent::indexAction();
+    }
+
     /**
      * @return Response|ViewModel
      */
@@ -50,7 +55,7 @@ class MeetupController extends AbstractActionController
 
                 $flashMessenger->addSuccessMessage('Thanks for your support !');
 
-                return $this->redirect()->toRoute('contact', ['action' => 'thankYou']);
+                return $this->redirect()->toRoute('meetup/list', ['action' => 'thankYou']);
             }
         }
 
