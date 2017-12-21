@@ -20,6 +20,7 @@ use Application\Entity\Meetup;
             <th>Titre</th>
             <th>Date de début</th>
             <th>Date de fin</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -30,6 +31,11 @@ use Application\Entity\Meetup;
                 <td><?= $meetup->getTitle() ?></td>
                 <td><?= $meetup->getStartDate()->format('d/m/Y') ?></td>
                 <td><?= $meetup->getEndDate()->format('d/m/Y') ?></td>
+                <td>
+                    <a href="<?= $this->url('meetup/detail', ['id' => $meetup->getId()]) ?>" class="btn btn-info">Afficher</a>
+                    <a href="<?= $this->url('meetup/edit', ['id' => $meetup->getId()]) ?>" class="btn btn-warning">Editer</a>
+<!--                    <a href="--><?//= ?><!--" class="btn btn-danger">Supprimer</a>-->
+                </td>
             </tr>
         <?php endforeach; ?>
         </tbody>
