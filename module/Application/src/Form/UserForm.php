@@ -35,6 +35,10 @@ class UserForm extends Form implements InputFilterProviderInterface
             'name' => 'username',
             'options' => ['label' => 'Pseudo'],
             'attributes' => ['class' => 'form-control'],
+        ])->add([
+            'type' => 'Zend\Form\Element\Submit',
+            'name' => 'submit',
+            'attributes' => ['value' => 'Submit', 'class' => 'btn btn-default'],
         ])->add(new Csrf('security'));
     }
 
