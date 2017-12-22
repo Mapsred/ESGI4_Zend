@@ -9,7 +9,6 @@
 namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zend\Stdlib\ArraySerializableInterface;
 
 /**
  * Class User
@@ -63,8 +62,6 @@ class Meetup
      * @ORM\JoinColumn(name="organizer", referencedColumnName="id", nullable=true)
      */
     private $organizer;
-
-
 
     /**
      * @return int
@@ -167,10 +164,29 @@ class Meetup
      */
     public function stringToDate($date): \DateTime
     {
-        if (! $date instanceof \DateTime) {
+        if (!$date instanceof \DateTime) {
             $date = \DateTime::createFromFormat('d/m/Y', $date);
         }
 
         return $date;
+    }
+
+    /**
+     * @return User
+     */
+    public function getOrganizer()
+    {
+        return $this->organizer;
+    }
+
+    /**
+     * @param User $organizer
+     * @return Meetup
+     */
+    public function setOrganizer($organizer): Meetup
+    {
+        $this->organizer = $organizer;
+
+        return $this;
     }
 }

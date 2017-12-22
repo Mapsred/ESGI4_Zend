@@ -60,7 +60,7 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             'attributes' => ['value' => 'Submit', 'class' => 'btn btn-default'],
         ])->add([
             'type' => ObjectSelect::class,
-            'name' => 'user',
+            'name' => 'organizer',
             'options' => [
                 'label' => 'Organisateur',
                 'object_manager' => $entityManager,
