@@ -108,7 +108,6 @@ class UserController  extends AbstractActionController
 
         $form = $this->userManager->getForm();
         $form->bind($user);
-        $form->bindDates();
 
         /** @var Request $request */
         $request = $this->getRequest();
@@ -120,7 +119,7 @@ class UserController  extends AbstractActionController
                 $this->userManager->persistAndFlush($user);
                 $flashMessenger = $this->flashMessenger();
 
-                $flashMessenger->addSuccessMessage('Thanks for your support !');
+                $flashMessenger->addSuccessMessage(sprintf('The user %s is successfully updated', $user->getUsername()));
 
                 return $this->redirect()->toRoute('user');
             }
