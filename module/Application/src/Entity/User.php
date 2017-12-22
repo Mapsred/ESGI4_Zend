@@ -123,4 +123,12 @@ class User
         return $this->organizedMeetups;
     }
 
+    /**
+     * @return bool
+     */
+    public function hasOrganizedMeetup(): bool
+    {
+        return !$this->getOrganizedMeetups()->isEmpty();
+    }
+
 }

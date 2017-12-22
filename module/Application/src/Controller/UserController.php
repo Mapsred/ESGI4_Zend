@@ -140,9 +140,15 @@ class UserController  extends AbstractActionController
             return $this->redirect()->toRoute('user');
         }
 
-        $this->userManager->removeEntity($user);
         $flashMessenger = $this->flashMessenger();
-        $flashMessenger->addSuccessMessage(sprintf('Meetup %s successfully removed !', $user->getTitle()));
+        if ($user->hasOrganizedMeetup()) {
+            $flashMessenger->addErrorMessage(sprintf('Meetup %s is organizing Meetups, he cannot be removed', $user->getUsername()));
+
+            return $this->redirect()->toRoute('user');
+        }
+
+        $this->userManager->removeEntity($user);
+        $flashMessenger->addSuccessMessage(sprintf('User %s successfully removed !', $user->getUsername()));
 
         return $this->redirect()->toRoute('user');
     }
