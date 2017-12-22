@@ -1,1 +1,45 @@
 <?php
+
+use Application\Entity\User;
+
+/** @var User $user */
+?>
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Utilisateurs</div>
+    <div class="panel-body">
+        <p>
+            Les différents utilisateurs sont listés ici <br>
+            <a href="<?= $this->url('user/create') ?>" class="btn btn-info">Ajouter un Utilisateur</a>
+
+        </p>
+    </div>
+
+    <!-- Table -->
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <?php foreach ($this->users as $user): ?>
+            <tr>
+                <td><?= $user->getId() ?></td>
+                <td><?= $user->getUsername() ?></td>
+                <td>
+                    <a href="<?= $this->url('user/detail', ['id' => $user->getId()]) ?>" class="btn btn-info">Afficher</a>
+                    <a href="<?= $this->url('user/edit', ['id' => $user->getId()]) ?>" class="btn btn-warning">Editer</a>
+                    <a href="<?= $this->url('user/delete', ['id' => $user->getId()]) ?>" class="btn btn-danger">Supprimer</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+
