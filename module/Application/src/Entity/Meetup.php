@@ -57,6 +57,16 @@ class Meetup
     private $endDate;
 
     /**
+     * @var User $organizer
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\User", inversedBy="organized_meetups", cascade={"persist"})
+     * @ORM\JoinColumn(name="organizer", referencedColumnName="id", nullable=true)
+     */
+    private $organizer;
+
+
+
+    /**
      * @return int
      */
     public function getId()

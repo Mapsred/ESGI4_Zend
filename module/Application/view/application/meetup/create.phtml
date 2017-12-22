@@ -21,6 +21,7 @@ $title = $form->get('title');
 $description = $form->get('description');
 $startDate = $form->get('start_date');
 $endDate = $form->get('end_date');
+$userSelect = $form->get('user');
 ?>
 
 <h1>Contact</h1>
@@ -47,6 +48,12 @@ $endDate = $form->get('end_date');
     <?= $formLabel($endDate); ?>
     <?= $this->formText($endDate); ?>
     <?= $this->formElementErrors($endDate); ?>
+</div>
+
+<div class="form-group">
+    <?= $formLabel($userSelect); ?>
+    <?= $this->formSelect($userSelect); ?>
+    <?= $this->formElementErrors($userSelect); ?>
 </div>
 
 <?= $this->formElement($form->get('security')) ?>
