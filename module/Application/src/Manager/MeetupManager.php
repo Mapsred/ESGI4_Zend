@@ -16,8 +16,8 @@ use Application\Repository\MeetupRepository;
  *
  * @author François MATHIEU <francois.mathieu@livexp.fr>
  * @method MeetupForm getForm()
- * @method MeetupForm persistAndFlush($entity)
- * @method MeetupForm removeEntity($entity)
+ * @method MeetupManager persistAndFlush($entity)
+ * @method MeetupManager removeEntity($entity)
  * @method MeetupRepository getRepository()
  */
 final class MeetupManager extends BaseManager

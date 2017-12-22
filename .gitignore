@@ -7,3 +7,5 @@ phpunit.xml
 docker-compose.yml
 .env
 .php_cs.cache
+/data/
+!/data/cache/.gitkeep
