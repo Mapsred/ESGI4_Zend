@@ -8,9 +8,10 @@
 
 namespace Application\Factory;
 
-use Application\Controller\MeetupController;
-use Application\Manager\MeetupManager;
+use Application\Controller;
+use Application\Manager;
 use Interop\Container\ContainerInterface;
+use Zend\Mvc\Controller\AbstractActionController;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
@@ -24,17 +25,20 @@ class ControllerManagerFactory implements FactoryInterface
      * @param ContainerInterface $container
      * @param string $requestedName
      * @param array|null $options
-     * @return MeetupController
+     * @return AbstractActionController
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $manager = null;
-        if ($requestedName === MeetupController::class) {
-            $manager = $container->get(MeetupManager::class);
+        if ($requestedName === Controller\MeetupController::class) {
+            $manager = $container->get(Manager\MeetupManager::class);
+        }
+        if ($requestedName === Controller\UserController::class) {
+            $manager = $container->get(Manager\UserManager::class);
         }
 
-        return new MeetupController($manager);
+        return new $requestedName($manager);
     }
 }

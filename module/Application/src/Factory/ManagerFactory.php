@@ -8,10 +8,9 @@
 
 namespace Application\Factory;
 
-use Application\Entity\Meetup;
-use Application\Form\MeetupForm;
-use Application\Manager\BaseManager;
-use Application\Manager\MeetupManager;
+use Application\Entity;
+use Application\Form;
+use Application\Manager;
 use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
@@ -26,10 +25,10 @@ class ManagerFactory implements FactoryInterface
     /**
      * Create an object
      *
-     * @param  ContainerInterface $container
-     * @param  string $requestedName
-     * @param  null|array $options
-     * @return BaseManager
+     * @param ContainerInterface $container
+     * @param string $requestedName
+     * @param null|array $options
+     * @return Manager\BaseManager
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
@@ -40,9 +39,14 @@ class ManagerFactory implements FactoryInterface
 
         $form = null;
         $class = null;
-        if ($requestedName === MeetupManager::class) {
-            $class = Meetup::class;
-            $form = new MeetupForm($manager);
+        if ($requestedName === Manager\MeetupManager::class) {
+            $class = Entity\Meetup::class;
+            $form = new Form\MeetupForm($manager);
+        }
+
+        if ($requestedName === Manager\UserManager::class) {
+            $class = Entity\User::class;
+            $form = new Form\UserForm($manager);
         }
 
         return new $requestedName($manager, $form, $class);
