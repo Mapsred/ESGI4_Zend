@@ -16,6 +16,12 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\Plugin\FlashMessenger\FlashMessenger;
 use Zend\View\Model\ViewModel;
 
+/**
+ * Class MeetupController
+ *
+ * @author François MATHIEU <francois.mathieu@livexp.fr>
+ * @method FlashMessenger flashMessenger()
+ */
 class MeetupController extends AbstractActionController
 {
     /**
@@ -55,7 +61,7 @@ class MeetupController extends AbstractActionController
 
                 $flashMessenger->addSuccessMessage('Thanks for your support !');
 
-                return $this->redirect()->toRoute('meetup', ['action' => 'thankYou']);
+                return $this->redirect()->toRoute('meetup');
             }
         }
 
@@ -76,13 +82,13 @@ class MeetupController extends AbstractActionController
         ]);
     }
 
+    /**
+     * @return Response|ViewModel
+     */
     public function detailAction()
     {
         $id = $this->params()->fromRoute('id');
-
-        try {
-            $meetup = $this->meetupManager->getRepository()->findOneBy(['id' => $id]);
-        } catch (\InvalidArgumentException $ex) {
+        if (null === $meetup = $this->meetupManager->getRepository()->findOneBy(['id' => $id])) {
             return $this->redirect()->toRoute('meetup');
         }
 
@@ -91,12 +97,13 @@ class MeetupController extends AbstractActionController
         ]);
     }
 
+    /**
+     * @return Response|ViewModel
+     */
     public function editAction()
     {
         $id = $this->params()->fromRoute('id');
-        try {
-            $meetup = $this->meetupManager->getRepository()->findOneBy(['id' => $id]);
-        } catch (\InvalidArgumentException $ex) {
+        if (null === $meetup = $this->meetupManager->getRepository()->findOneBy(['id' => $id])) {
             return $this->redirect()->toRoute('meetup');
         }
 
@@ -112,12 +119,11 @@ class MeetupController extends AbstractActionController
 
             if ($form->isValid()) {
                 $this->meetupManager->persistAndFlush($meetup);
-                /** @var FlashMessenger $flashMessenger */
                 $flashMessenger = $this->flashMessenger();
 
                 $flashMessenger->addSuccessMessage('Thanks for your support !');
 
-                return $this->redirect()->toRoute('meetup', ['action' => 'thankYou']);
+                return $this->redirect()->toRoute('meetup');
             }
         }
 
@@ -125,4 +131,22 @@ class MeetupController extends AbstractActionController
             'form' => $form
         ]);
     }
+
+    /**
+     * @return Response
+     */
+    public function deleteAction(): Response
+    {
+        $id = $this->params()->fromRoute('id');
+        if (null === $meetup = $this->meetupManager->getRepository()->findOneBy(['id' => $id])) {
+            return $this->redirect()->toRoute('meetup');
+        }
+
+        $this->meetupManager->removeEntity($meetup);
+        $flashMessenger = $this->flashMessenger();
+        $flashMessenger->addSuccessMessage(sprintf('Meetup %s successfully removed !', $meetup->getTitle()));
+
+        return $this->redirect()->toRoute('meetup');
+    }
+
 }

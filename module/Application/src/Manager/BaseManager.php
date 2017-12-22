@@ -90,4 +90,12 @@ abstract class BaseManager
 
         return $this;
     }
+
+    public function removeEntity($entity): BaseManager
+    {
+        $this->getManager()->remove($entity);
+        $this->getManager()->flush();
+
+        return $this;
+    }
 }

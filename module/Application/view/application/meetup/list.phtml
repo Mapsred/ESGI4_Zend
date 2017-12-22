@@ -9,7 +9,11 @@ use Application\Entity\Meetup;
     <!-- Default panel contents -->
     <div class="panel-heading">Meetups</div>
     <div class="panel-body">
-        <p>Les différents meetups sont listés ici</p>
+        <p>
+            Les différents meetups sont listés ici <br>
+            <a href="<?= $this->url('meetup/create') ?>" class="btn btn-info">Ajouter un Meetup</a>
+
+        </p>
     </div>
 
     <!-- Table -->
@@ -34,7 +38,7 @@ use Application\Entity\Meetup;
                 <td>
                     <a href="<?= $this->url('meetup/detail', ['id' => $meetup->getId()]) ?>" class="btn btn-info">Afficher</a>
                     <a href="<?= $this->url('meetup/edit', ['id' => $meetup->getId()]) ?>" class="btn btn-warning">Editer</a>
-<!--                    <a href="--><?//= ?><!--" class="btn btn-danger">Supprimer</a>-->
+                    <a href="<?= $this->url('meetup/delete', ['id' => $meetup->getId()]) ?>" class="btn btn-danger">Supprimer</a>
                 </td>
             </tr>
         <?php endforeach; ?>
