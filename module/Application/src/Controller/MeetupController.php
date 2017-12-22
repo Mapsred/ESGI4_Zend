@@ -22,13 +22,17 @@ use Zend\View\Model\ViewModel;
  * @author François MATHIEU <francois.mathieu@livexp.fr>
  * @method FlashMessenger flashMessenger()
  */
-class MeetupController extends AbstractActionController
+final class MeetupController extends AbstractActionController
 {
     /**
      * @var MeetupManager $meetupManager
      */
     private $meetupManager;
 
+    /**
+     * MeetupController constructor.
+     * @param MeetupManager $meetupManager
+     */
     public function __construct(MeetupManager $meetupManager)
     {
         $this->meetupManager = $meetupManager;
@@ -56,10 +60,9 @@ class MeetupController extends AbstractActionController
 
             if ($form->isValid()) {
                 $this->meetupManager->persistAndFlush($meetup);
-                /** @var FlashMessenger $flashMessenger */
-                $flashMessenger = $this->flashMessenger();
 
-                $flashMessenger->addSuccessMessage('Thanks for your support !');
+                $flashMessenger = $this->flashMessenger();
+                $flashMessenger->addSuccessMessage(sprintf('Meetup %s successfully created', $meetup->getTitle()));
 
                 return $this->redirect()->toRoute('meetup');
             }
@@ -71,9 +74,9 @@ class MeetupController extends AbstractActionController
     }
 
     /**
-     * @return Response|ViewModel
+     * @return ViewModel
      */
-    public function listAction()
+    public function listAction(): ViewModel
     {
         $meetups = $this->meetupManager->getRepository()->findAll();
 
@@ -83,7 +86,7 @@ class MeetupController extends AbstractActionController
     }
 
     /**
-     * @return Response|ViewModel
+     * @return ViewModel|Response
      */
     public function detailAction()
     {
@@ -119,9 +122,9 @@ class MeetupController extends AbstractActionController
 
             if ($form->isValid()) {
                 $this->meetupManager->persistAndFlush($meetup);
-                $flashMessenger = $this->flashMessenger();
 
-                $flashMessenger->addSuccessMessage('Thanks for your support !');
+                $flashMessenger = $this->flashMessenger();
+                $flashMessenger->addSuccessMessage(sprintf('Meetup %s successfully updated', $meetup->getTitle()));
 
                 return $this->redirect()->toRoute('meetup');
             }

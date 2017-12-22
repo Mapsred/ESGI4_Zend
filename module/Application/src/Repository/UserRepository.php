@@ -13,6 +13,6 @@ use Doctrine\ORM\EntityRepository;
  * @method User[]|array|null findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  * @method User findOneBy(array $criteria, array $orderBy = null)
  */
-class UserRepository extends EntityRepository
+final class UserRepository extends EntityRepository
 {
 }

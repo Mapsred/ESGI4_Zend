@@ -19,7 +19,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  *
  * @author François MATHIEU <francois.mathieu@livexp.fr>
  */
-class ControllerManagerFactory implements FactoryInterface
+final class ControllerManagerFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container

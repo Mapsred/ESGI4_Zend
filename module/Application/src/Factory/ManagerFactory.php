@@ -20,7 +20,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  *
  * @author François MATHIEU <francois.mathieu@livexp.fr>
  */
-class ManagerFactory implements FactoryInterface
+final class ManagerFactory implements FactoryInterface
 {
     /**
      * Create an object

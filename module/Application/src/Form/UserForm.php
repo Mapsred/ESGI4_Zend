@@ -16,7 +16,7 @@ use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Validator;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
-class UserForm extends Form implements InputFilterProviderInterface
+final class UserForm extends Form implements InputFilterProviderInterface
 {
     /**
      * MeetupForm constructor.

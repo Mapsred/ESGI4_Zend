@@ -23,18 +23,25 @@ use Zend\View\Model\ViewModel;
  * @method FlashMessenger flashMessenger()
  * @method Request getRequest()
  */
-class UserController  extends AbstractActionController
+final class UserController extends AbstractActionController
 {
     /**
      * @var UserManager $userManager
      */
     private $userManager;
 
+    /**
+     * UserController constructor.
+     * @param UserManager $userManager
+     */
     public function __construct(UserManager $userManager)
     {
         $this->userManager = $userManager;
     }
 
+    /**
+     * @return ViewModel
+     */
     public function indexAction(): ViewModel
     {
         return parent::indexAction();
@@ -58,7 +65,7 @@ class UserController  extends AbstractActionController
                 $this->userManager->persistAndFlush($user);
 
                 $flashMessenger = $this->flashMessenger();
-                $flashMessenger->addSuccessMessage(sprintf('The user %s is successfully added', $user->getUsername()));
+                $flashMessenger->addSuccessMessage(sprintf('User %s is successfully created', $user->getUsername()));
 
                 return $this->redirect()->toRoute('user');
             }
@@ -70,9 +77,9 @@ class UserController  extends AbstractActionController
     }
 
     /**
-     * @return Response|ViewModel
+     * @return ViewModel
      */
-    public function listAction()
+    public function listAction(): ViewModel
     {
         $users = $this->userManager->getRepository()->findAll();
 
@@ -82,7 +89,7 @@ class UserController  extends AbstractActionController
     }
 
     /**
-     * @return Response|ViewModel
+     * @return ViewModel|Response
      */
     public function detailAction()
     {
@@ -117,9 +124,9 @@ class UserController  extends AbstractActionController
 
             if ($form->isValid()) {
                 $this->userManager->persistAndFlush($user);
-                $flashMessenger = $this->flashMessenger();
 
-                $flashMessenger->addSuccessMessage(sprintf('The user %s is successfully updated', $user->getUsername()));
+                $flashMessenger = $this->flashMessenger();
+                $flashMessenger->addSuccessMessage(sprintf('User %s is successfully updated', $user->getUsername()));
 
                 return $this->redirect()->toRoute('user');
             }

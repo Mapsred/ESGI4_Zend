@@ -13,6 +13,6 @@ use Doctrine\ORM\EntityRepository;
  * @method Meetup[]|array|null findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  * @method Meetup findOneBy(array $criteria, array $orderBy = null)
  */
-class MeetupRepository extends EntityRepository
+final class MeetupRepository extends EntityRepository
 {
 }
