@@ -12,13 +12,30 @@ $user = $this->user;
     <!-- Default panel contents -->
     <div class="panel-heading"><?= $user->getUsername() ?></div>
     <div class="panel-body">
+        <?php if ($user->getOrganizations()->count() > 0): ?>
+            L'utilisateur est leader des organisations suivantes :
+            <ul>
+                <?php foreach ($user->getOrganizations() as $organization): ?>
+                    <li>
+                        <a href="<?= $this->url('organization/detail', ['id' => $organization->getId()]) ?>">
+                            <?= $organization->getName() ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+
+            </ul>
+        <?php else: ?>
+            L'utilisateur n'est leader d'aucune organisation
+        <?php endif ?>
+
+        <br>
         <?php if ($user->getOrganizedMeetups()->count() > 0): ?>
             L'utilisateur est organisateur des meetups suivants :
             <ul>
-                <?php foreach ($user->getOrganizedMeetups() as $organizedMeetup): ?>
+                <?php foreach ($user->getOrganizedMeetups() as $organization): ?>
                     <li>
-                        <a href="<?= $this->url('meetup/detail', ['id' => $organizedMeetup->getId()]) ?>">
-                            <?= $organizedMeetup->getTitle() ?>
+                        <a href="<?= $this->url('meetup/detail', ['id' => $organization->getId()]) ?>">
+                            <?= $organization->getTitle() ?>
                         </a>
                     </li>
                 <?php endforeach; ?>

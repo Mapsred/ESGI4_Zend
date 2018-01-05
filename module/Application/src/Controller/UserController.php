@@ -149,7 +149,13 @@ final class UserController extends AbstractActionController
 
         $flashMessenger = $this->flashMessenger();
         if ($user->hasOrganizedMeetup()) {
-            $flashMessenger->addErrorMessage(sprintf('Meetup %s is organizing Meetups, he cannot be removed', $user->getUsername()));
+            $flashMessenger->addErrorMessage(sprintf('User %s is organizing Meetups, he cannot be removed', $user->getUsername()));
+
+            return $this->redirect()->toRoute('user');
+        }
+
+        if ($user->hasOrganization()) {
+            $flashMessenger->addErrorMessage(sprintf('User %s is leader of Organizations, he cannot be removed', $user->getUsername()));
 
             return $this->redirect()->toRoute('user');
         }

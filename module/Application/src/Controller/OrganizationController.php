@@ -140,12 +140,6 @@ final class OrganizationController extends AbstractActionController
         }
 
         $flashMessenger = $this->flashMessenger();
-//        if ($organization->hasOrganizedMeetup()) {
-//            $flashMessenger->addErrorMessage(sprintf('Meetup %s is organizing Meetups, he cannot be removed', $organization->getName()));
-//
-//            return $this->redirect()->toRoute('organization');
-//        }
-
         $this->organizationManager->removeEntity($organization);
         $flashMessenger->addSuccessMessage(sprintf('Organization %s successfully removed !', $organization->getName()));
 
