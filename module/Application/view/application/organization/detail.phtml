@@ -12,21 +12,30 @@ $organization = $this->organization;
     <!-- Default panel contents -->
     <div class="panel-heading"><?= $organization->getName() ?></div>
     <div class="panel-body">
-<!--        --><?php //if ($organization->getOrganizedMeetups()->count() > 0): ?>
-<!--            L'utilisateur est organisateur des meetups suivants :-->
-<!--            <ul>-->
-<!--                --><?php //foreach ($organization->getOrganizedMeetups() as $organizedMeetup): ?>
-<!--                    <li>-->
-<!--                        <a href="--><?//= $this->url('meetup/detail', ['id' => $organizedMeetup->getId()]) ?><!--">-->
-<!--                            --><?//= $organizedMeetup->getTitle() ?>
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                --><?php //endforeach; ?>
-<!---->
-<!--            </ul>-->
-<!--        --><?php //else: ?>
-<!--            L'utilisateur n'est organisateur d'aucun meetup-->
-<!--        --><?php //endif ?>
+        <?php if ($organization->getLeader() !== null): ?>
+            <p>
+                Le leader de l'organisation est
+                <a href="<?= $this->url('user/detail', ['id' => $organization->getLeader()->getId()]) ?>">
+                    <?= $organization->getLeader()->getUsername() ?>
+                </a>
+            </p>
+            <?php if ($organization->getMeetups()->count() > 0): ?>
+                L'utilisateur est organisateur des meetups suivants :
+                <ul>
+                    <?php foreach ($organization->getMeetups() as $organizedMeetup): ?>
+                        <li>
+                            <a href="<?= $this->url('meetup/detail', ['id' => $organizedMeetup->getId()]) ?>">
+                                <?= $organizedMeetup->getTitle() ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+
+                </ul>
+            <?php else: ?>
+                L'utilisateur n'est organisateur d'aucun meetup
+            <?php endif ?>
+
+        <?php endif; ?>
     </div>
 
 </div>

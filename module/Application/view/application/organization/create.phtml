@@ -18,6 +18,8 @@ $form
 /** @var FormLabel $formLabel */
 $formLabel = $this->plugin('formLabel');
 $name = $form->get('name');
+$userSelect = $form->get('leader');
+
 ?>
 
 <h1>Nouvelle organisation</h1>
@@ -26,6 +28,12 @@ $name = $form->get('name');
     <?= $formLabel($name); ?>
     <?= $this->formInput($name); ?>
     <?= $this->formElementErrors($name); ?>
+</div>
+
+<div class="form-group">
+    <?= $formLabel($userSelect); ?>
+    <?= $this->formSelect($userSelect); ?>
+    <?= $this->formElementErrors($userSelect); ?>
 </div>
 
 

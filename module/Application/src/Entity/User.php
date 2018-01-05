@@ -42,11 +42,18 @@ class User
     private $organizedMeetups;
 
     /**
+     * @var ArrayCollection|Organization[] $organizations
+     * @ORM\OneToMany(targetEntity="Application\Entity\Organization", mappedBy="leader", cascade={"persist"})
+     */
+    private $organizations;
+
+    /**
      * User constructor.
      */
     public function __construct()
     {
         $this->organizedMeetups = new ArrayCollection();
+        $this->organizations = new ArrayCollection();
     }
 
     /**
@@ -130,4 +137,46 @@ class User
     {
         return !$this->getOrganizedMeetups()->isEmpty();
     }
+
+    /**
+     * @param Organization $organization
+     * @return User
+     */
+    public function addOrganization(Organization $organization)
+    {
+        $this->organizations[] = $organization;
+
+        return $this;
+    }
+
+    /**
+     * Remove organization.
+     *
+     * @param Organization $organization
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeOrganization(Organization $organization)
+    {
+        return $this->organizations->removeElement($organization);
+    }
+
+    /**
+     * Get organizations.
+     *
+     * @return ArrayCollection|Organization[]
+     */
+    public function getOrganizations()
+    {
+        return $this->organizations;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasOrganization(): bool
+    {
+        return !$this->getOrganizations()->isEmpty();
+    }
+
 }

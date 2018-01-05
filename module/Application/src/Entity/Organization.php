@@ -36,6 +36,14 @@ class Organization
     private $name;
 
     /**
+     * @var User $leader
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\User", inversedBy="organizations", cascade={"persist"})
+     * @ORM\JoinColumn(name="leader", referencedColumnName="id", nullable=true)
+     */
+    private $leader;
+
+    /**
      * @return int
      */
     public function getId()
@@ -73,4 +81,30 @@ class Organization
         return $this;
     }
 
+    /**
+     * @return User
+     */
+    public function getLeader()
+    {
+        return $this->leader;
+    }
+
+    /**
+     * @param User $leader
+     * @return Organization
+     */
+    public function setLeader($leader): Organization
+    {
+        $this->leader = $leader;
+
+        return $this;
+    }
+
+    /**
+     * @return Meetup[]|ArrayCollection
+     */
+    public function getMeetups()
+    {
+        return $this->leader->getOrganizedMeetups();
+    }
 }

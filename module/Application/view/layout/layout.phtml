@@ -56,6 +56,12 @@
                 <li class="<?= $this->url(null, [], [], true) == $this->url('user/create') ? "active" : "" ?>">
                     <a href="<?= $this->url('user/create') ?>">Ajouter un utilisateur</a>
                 </li>
+                <li class="<?= $this->url(null, [], [], true) == $this->url('organization') ? "active" : "" ?>">
+                    <a href="<?= $this->url('organization') ?>">Voir les organisations</a>
+                </li>
+                <li class="<?= $this->url(null, [], [], true) == $this->url('organization/create') ? "active" : "" ?>">
+                    <a href="<?= $this->url('organization/create') ?>">Ajouter une organisation</a>
+                </li>
             </ul>
         </div>
     </div>

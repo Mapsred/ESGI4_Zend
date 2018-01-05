@@ -9,7 +9,9 @@
 namespace Application\Form;
 
 use Application\Entity\Organization;
+use Application\Entity\User;
 use Doctrine\ORM\EntityManager;
+use DoctrineModule\Form\Element\ObjectSelect;
 use Zend\Form\Element\Csrf;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilterProviderInterface;
@@ -38,6 +40,19 @@ final class OrganizationForm extends Form implements InputFilterProviderInterfac
         ])->add([
             'type' => 'Zend\Form\Element\Submit',
             'name' => 'submit',
+            'attributes' => ['value' => 'Submit', 'class' => 'btn btn-default'],
+        ])->add([
+            'type' => ObjectSelect::class,
+            'name' => 'leader',
+            'options' => [
+                'label' => 'Chef de l\'organisation',
+                'object_manager' => $entityManager,
+                'target_class' => User::class,
+                'property' => 'username',
+                'is_method' => true,
+                'find_method' => ['name' => 'findAll'],
+            ],
+            'empty_option' => "Select..",
             'attributes' => ['value' => 'Submit', 'class' => 'btn btn-default'],
         ])->add(new Csrf('security'));
     }
