@@ -130,5 +130,4 @@ class User
     {
         return !$this->getOrganizedMeetups()->isEmpty();
     }
-
 }

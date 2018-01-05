@@ -50,6 +50,12 @@
                 <li class="<?= $this->url(null, [], [], true) == $this->url('meetup/create') ? "active" : "" ?>">
                     <a href="<?= $this->url('meetup/create') ?>">Ajouter un Meetup</a>
                 </li>
+                <li class="<?= $this->url(null, [], [], true) == $this->url('user') ? "active" : "" ?>">
+                    <a href="<?= $this->url('user') ?>">Voir les utilisateurs</a>
+                </li>
+                <li class="<?= $this->url(null, [], [], true) == $this->url('user/create') ? "active" : "" ?>">
+                    <a href="<?= $this->url('user/create') ?>">Ajouter un utilisateur</a>
+                </li>
             </ul>
         </div>
     </div>

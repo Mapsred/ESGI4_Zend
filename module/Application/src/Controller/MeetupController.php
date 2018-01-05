@@ -151,5 +151,4 @@ final class MeetupController extends AbstractActionController
 
         return $this->redirect()->toRoute('meetup');
     }
-
 }

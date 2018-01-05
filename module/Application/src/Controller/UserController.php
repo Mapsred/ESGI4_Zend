@@ -159,6 +159,4 @@ final class UserController extends AbstractActionController
 
         return $this->redirect()->toRoute('user');
     }
-
-
 }
