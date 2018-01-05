@@ -146,18 +146,81 @@ return [
                     ],
                 ],
             ],
+            'organization' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route' => '/organization',
+                    'defaults' => [
+                        'controller' => Controller\OrganizationController::class,
+                        'action'     => 'list',
+                    ],
+                ],
+                'may_terminate' => true,
+                'child_routes'  => [
+                    'detail' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route'    => '/:id',
+                            'defaults' => [
+                                'action' => 'detail',
+                            ],
+                            'constraints' => [
+                                'id' => '[1-9]\d*',
+                            ],
+                        ],
+                    ],
+                    'create' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route'    => '/create',
+                            'defaults' => [
+                                'controller' => Controller\OrganizationController::class,
+                                'action'     => 'create',
+                            ],
+                        ],
+                    ],
+                    'edit' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route'    => '/edit/:id',
+                            'defaults' => [
+                                'controller' => Controller\OrganizationController::class,
+                                'action'     => 'edit',
+                            ],
+                            'constraints' => [
+                                'id' => '[1-9]\d*',
+                            ],
+                        ],
+                    ],
+                    'delete' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/delete/:id',
+                            'defaults' => [
+                                'controller' => Controller\OrganizationController::class,
+                                'action'     => 'delete',
+                            ],
+                            'constraints' => [
+                                'id' => '[1-9]\d*',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\MeetupController::class => Factory\ControllerManagerFactory::class,
             Controller\UserController::class => Factory\ControllerManagerFactory::class,
+            Controller\OrganizationController::class => Factory\ControllerManagerFactory::class,
         ],
     ],
     "service_manager" => [
         "factories" => [
             Manager\MeetupManager::class => Factory\ManagerFactory::class,
             Manager\UserManager::class => Factory\ManagerFactory::class,
+            Manager\OrganizationManager::class => Factory\ManagerFactory::class,
         ]
     ],
     'view_manager' => [

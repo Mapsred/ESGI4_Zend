@@ -38,6 +38,9 @@ final class ControllerManagerFactory implements FactoryInterface
         if ($requestedName === Controller\UserController::class) {
             $manager = $container->get(Manager\UserManager::class);
         }
+        if ($requestedName === Controller\OrganizationController::class) {
+            $manager = $container->get(Manager\OrganizationManager::class);
+        }
 
         return new $requestedName($manager);
     }

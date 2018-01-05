@@ -1,0 +1,34 @@
+<?php
+
+use Application\Entity\Organization;
+
+$this->headTitle('Organization Read');
+
+/** @var Organization $organization */
+$organization = $this->organization;
+?>
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><?= $organization->getName() ?></div>
+    <div class="panel-body">
+<!--        --><?php //if ($organization->getOrganizedMeetups()->count() > 0): ?>
+<!--            L'utilisateur est organisateur des meetups suivants :-->
+<!--            <ul>-->
+<!--                --><?php //foreach ($organization->getOrganizedMeetups() as $organizedMeetup): ?>
+<!--                    <li>-->
+<!--                        <a href="--><?//= $this->url('meetup/detail', ['id' => $organizedMeetup->getId()]) ?><!--">-->
+<!--                            --><?//= $organizedMeetup->getTitle() ?>
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                --><?php //endforeach; ?>
+<!---->
+<!--            </ul>-->
+<!--        --><?php //else: ?>
+<!--            L'utilisateur n'est organisateur d'aucun meetup-->
+<!--        --><?php //endif ?>
+    </div>
+
+</div>
+
+

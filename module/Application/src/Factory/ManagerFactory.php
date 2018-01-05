@@ -49,6 +49,11 @@ final class ManagerFactory implements FactoryInterface
             $form = new Form\UserForm($manager);
         }
 
+        if ($requestedName === Manager\OrganizationManager::class) {
+            $class = Entity\Organization::class;
+            $form = new Form\OrganizationForm($manager);
+        }
+
         return new $requestedName($manager, $form, $class);
     }
 }

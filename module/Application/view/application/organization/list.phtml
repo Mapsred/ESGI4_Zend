@@ -1,0 +1,47 @@
+<?php
+
+use Application\Entity\Organization;
+
+$this->headTitle('Organization List');
+
+/** @var Organization $organization */
+?>
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Utilisateurs</div>
+    <div class="panel-body">
+        <p>
+            Les différents utilisateurs sont listés ici <br>
+            <a href="<?= $this->url('organization/create') ?>" class="btn btn-info">Ajouter une organisation</a>
+
+        </p>
+    </div>
+
+    <!-- Table -->
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <?php foreach ($this->organizations as $organization): ?>
+            <tr>
+                <td><?= $organization->getId() ?></td>
+                <td><?= $organization->getName() ?></td>
+                <td>
+                    <a href="<?= $this->url('organization/detail', ['id' => $organization->getId()]) ?>" class="btn btn-info">Afficher</a>
+                    <a href="<?= $this->url('organization/edit', ['id' => $organization->getId()]) ?>" class="btn btn-warning">Editer</a>
+                    <a href="<?= $this->url('organization/delete', ['id' => $organization->getId()]) ?>" class="btn btn-danger">Supprimer</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+
