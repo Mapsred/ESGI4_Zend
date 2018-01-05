@@ -178,5 +178,4 @@ class User
     {
         return !$this->getOrganizations()->isEmpty();
     }
-
 }
