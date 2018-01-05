@@ -1,9 +1,21 @@
 <h1>Bienvenue !</h1>
 
-<p>Ce projet contient des <b>Meetup</b> et des <b>Users</b>.</p>
+<p>Ce projet contient des <b>Meetup</b>, des <b>Organizations</b> et des <b>Users</b>.</p>
 
 <p>Chaque <b>Meetup</b> contient un <b>Organizer (User)</b> ainsi que d'autres informations.</p>
 
-<p>Chaque <b>User</b> contient une liste de <b>OrganizedMeetups (Meetup)</b> ainsi que d'autres informations.</p>
+<p>Chaque <b>Organization</b> contient un <b>Leader (User)</b> ainsi que d'autres informations.</p>
 
-<p>Pour bien commencer, il est conseillé de <b><a href="<?= $this->url('user/create') ?>">créer un utilisateur</a></b></p>
+<p>
+    Chaque <b>User</b> contient une liste de <b>OrganizedMeetups (Meetup)</b>,
+    une liste de <b>Organization (Organization)</b> ainsi que d'autres informations.
+</p>
+
+<p>
+    Pour bien commencer, il est conseillé de <b><a href="<?= $this->url('user/create') ?>">créer un utilisateur</a></b>
+</p>
+
+<p>Puis ensuite, <b><a href="<?= $this->url('organization/create') ?>">créer une organisation</a></b></p>
+
+<p>Et enfin, <b><a href="<?= $this->url('meetup/create') ?>">créer un meetup</a></b></p>
+
