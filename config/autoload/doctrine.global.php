@@ -10,6 +10,8 @@ return [
                 'paths' => [
                     __DIR__.'/../../module/Application/src/Entity',
                     __DIR__.'/../../module/Application/src/Repository',
+                    __DIR__.'/../../module/User/src/Entity',
+                    __DIR__.'/../../module/User/src/Repository',
                 ],
             ],
 
@@ -20,6 +22,8 @@ return [
                     // register `default_driver` for any entity under namespace `My\Namespace`
                     'Application\Entity' => 'default_driver',
                     'Application\Repository' => 'default_driver',
+                    'User\Entity' => 'default_driver',
+                    'User\Repository' => 'default_driver',
                 ],
             ],
         ],

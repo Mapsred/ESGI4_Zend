@@ -26,4 +26,5 @@ return [
     'DoctrineModule',
     'DoctrineORMModule',
     'Application',
+    'User'
 ];
